@@ -17,7 +17,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 ## 运行
-项目使用vite3搭建，确保电脑已经安装了运行vite的环境，网上搜索要求环境的结果是Node 14.18+，16+
+项目使用vite3搭建，确保你的电脑已经安装了运行vite的环境，根据搜索结果，运行vite需要安装node 14.18+，16+
 
 执行
 ```
