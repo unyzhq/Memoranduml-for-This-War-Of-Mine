@@ -18,3 +18,13 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ![image](https://github.com/unyzhq/Memoranduml-for-This-War-Of-Mine/blob/main/public/%E7%A4%BA%E4%BE%8B.png)
+
+这个备忘录工具需要配合收集策略使用，具体请看：
+## 收集策略
+进入地图后，依照以下步骤进行：
+1. 按顺序收集资源点的物资，直到遇见第一个背包无法全部带走的资源点。
+2. 此时将所有物品丢弃，与该资源点合并，但保留需要用到的工具。
+3. 继续收集物资，背包装满时立刻返回之前丢弃的资源点，重复步骤2。
+4. 重复步骤3，直到所有资源收集完毕。
+5. 带走需要的资源，打开备忘录工具，记录该地点无法带走的全部物资。
+6. 点击保存并进入到下一天，回到游戏，返程回家。
