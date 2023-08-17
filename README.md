@@ -20,12 +20,13 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 项目使用vite3搭建，确保电脑已经安装了运行vite的环境，网上搜索要求环境的结果是Node 14.18+，16+
 执行
 ```
-   npm i
+npm i
 ```
 然后
 ```
-   npm run dev
+npm run dev
 ```
+开发工具：建议使用Visual studio code
 最终效果：
 ![image](https://github.com/unyzhq/Memoranduml-for-This-War-Of-Mine/blob/main/public/%E7%A4%BA%E4%BE%8B.png)
 
