@@ -26,7 +26,16 @@ npm i
 ```
 npm run dev
 ```
-开发工具：建议使用Visual studio code
+建议开发工具：建议使用[Visual Studio Code](https://code.visualstudio.com/)
+
+建议拓展：
+1. Chinese(Simplified)(简体中文)Language Pack For Visual Studio Code
+2. Live Sass Complier
+3. Sass(.sass only)
+4. TypeScript Vue Plugin(Volar)
+5. Vue 3 Snippets
+6. Vue Language Features(Volar)
+
 最终效果：
 ![image](https://github.com/unyzhq/Memoranduml-for-This-War-Of-Mine/blob/main/public/%E7%A4%BA%E4%BE%8B.png)
 
