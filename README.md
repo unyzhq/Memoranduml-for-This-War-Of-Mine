@@ -16,7 +16,17 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
+## 运行
+项目使用vite3搭建，确保电脑已经安装了运行vite的环境，网上搜索要求环境的结果是Node 14.18+，16+
+执行
+```
+   npm i
+```
+然后
+```
+   npm run dev
+```
+最终效果：
 ![image](https://github.com/unyzhq/Memoranduml-for-This-War-Of-Mine/blob/main/public/%E7%A4%BA%E4%BE%8B.png)
 
 这个备忘录工具需要配合收集策略使用，具体请看：
@@ -35,7 +45,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 2. 选中一个物品后，再次点击该物品时会使该物品数量-1。
 3. 选中数字，使用键盘修改物品数量。
 4. 每个地点单独储存一份物品清单，互不干扰，点击地点进行切换。
-5. 点击“保存并进入到下一天”将所有地点的数据保存到本地，点击该按钮不要刷新，否则数据将丢失。
+5. 点击“保存并进入到下一天”将所有地点的数据保存到本地，在点击该按钮之前不要刷新，否则数据将丢失。
 6. 点击“回到前一天”将展示前一天的数据，并可以对它修改，但修改的数据仅保存在这一天的本地数据中(所以修改没有意义)。
 7. 点击“清空数据”将清空所有数据，包括已经保存的本地数据。
 8. 点击“仅看拥有”将只展示数量不为零的物品。
