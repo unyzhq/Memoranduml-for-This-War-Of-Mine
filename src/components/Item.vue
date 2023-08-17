@@ -1,10 +1,10 @@
 <template>
     <div style="display: flex;flex-direction: column;justify-content: flex-start;align-items: center;">
         <div class="edge" ref="edgeRef" @click="onClickItem" style="height: 80px;width: 80px;padding: 4px;display: flex;position: relative;;justify-content: center;align-items: center;margin-bottom: 6px;">
-            <div style="position: absolute;height: 100%;width: 50px;background-color: rgb(11,12,7);">
+            <div style="position: absolute;height: 82px;width: 50px;background-color: rgb(11,12,7);">
 
             </div>
-            <div style="position: absolute;height: 50px;width: 100%;background-color: rgb(11,12,7);">
+            <div style="position: absolute;height: 50px;width: 82px;background-color: rgb(11,12,7);">
 
             </div>
             <div>
@@ -41,7 +41,8 @@
     </div>
 </template>
 <script lang="ts" setup>
-    import {ref,watch} from 'vue'
+    import {ref,watch,computed,onMounted} from 'vue'
+    import { useStore } from 'vuex'
     let edgeRef = ref(null)
     let plusRefs = ref<Array<HTMLDivElement>>([])
     function plusRef(el:any){
@@ -50,7 +51,7 @@
     }
     function onClickItem(){
         const edgeEl = edgeRef.value as unknown as HTMLDivElement
-        if(edgeEl.getAttribute('selected') !== null){
+        if(edgeEl.getAttribute('selected-item') !== null){
             const keyframes = [
                 {transform: 'scale(1.05)'},
                 {transform: 'scale(1)'}
@@ -77,21 +78,58 @@
             if(count.value > 0)
                 count.value -= 1
         }else{
-            for(let sle of document.querySelectorAll('[selected]')){
-                sle.removeAttribute('selected')
+            for(let sle of document.querySelectorAll('[selected-item]')){
+                sle.removeAttribute('selected-item')
             }
             for(let ple of plusRefs.value){
-                ple.setAttribute('selected','true')
+                ple.setAttribute('selected-item','true')
             }
-            edgeEl.setAttribute('selected','true')
+            edgeEl.setAttribute('selected-item','true')
         }
     }
+    const props = defineProps<{
+        img:string,
+        group:string,
+        index:number
+    }>()
+    const emits = defineEmits(['changeStorage'])
+    let store = useStore()
     let count = ref(0)
     watch(count,(newvalue)=>{
-        if(typeof newvalue === "string" && (newvalue as string).length === 0)
+        if(count.value === undefined || (typeof newvalue === "string" && (newvalue as string).length === 0)){
             count.value = 0
-        if(newvalue > 999)
+            emits('changeStorage',props.group,props.index,count.value)
+        }
+        if(isSwitch.value){
+            isSwitch.value = false
+            return
+        }
+        if(newvalue > 999){
             count.value = 999
+            emits('changeStorage',props.group,props.index,count.value)
+        }
+        emits('changeStorage',props.group,props.index,count.value)
+    })
+    let isSwitch = ref(false)
+    //当需要监视vuex中state状态变化时，可以手动创建一个computed变量，关联该state，再监视该computed。
+    let index = computed(()=>{
+        return store.state.index
+    })
+    watch(index,()=>{
+        count.value = store.getters['getCurrent'][props.group][props.index]
+        isSwitch.value = true
+    })
+    let day = computed(()=>{
+        return store.state.day
+    })
+    watch(day,()=>{
+        count.value = store.getters['getCurrent'][props.group][props.index]
+        isSwitch.value = true
+    })
+    onMounted(()=>{
+        if(store.getters['getCurrent'][props.group][props.index] !== undefined)
+            count.value = store.getters['getCurrent'][props.group][props.index]
+        isSwitch.value = true
     })
     function onMouseWheel(event:WheelEvent){
         if(event.deltaY > 0 && count.value === 0)
@@ -103,13 +141,13 @@
     }
     function onClickNumber(event:MouseEvent){
         const edgeEl = edgeRef.value as unknown as HTMLDivElement
-        for(let sle of document.querySelectorAll('[selected]')){
-            sle.removeAttribute('selected')
+        for(let sle of document.querySelectorAll('[selected-item]')){
+            sle.removeAttribute('selected-item')
         }
         for(let ple of plusRefs.value){
-            ple.setAttribute('selected','true')
+            ple.setAttribute('selected-item','true')
         }
-        edgeEl.setAttribute('selected','true');
+        edgeEl.setAttribute('selected-item','true');
         (event.target as HTMLInputElement).select();
     }
     function onKeyDown(event: KeyboardEvent){
@@ -122,9 +160,9 @@
             event.preventDefault();
         
     }
-    const props = defineProps<{
-        img:string
-    }>()
+    defineExpose({
+        count
+    })
 </script>
 <style lang="scss" scoped>
     img{
@@ -145,7 +183,7 @@
         border-left: none;
         border-right: none;
         border-top: none;
-        border-bottom-color: rgb(11,12,7,0);
+        border-bottom-color: rgba(11,12,7,0);
     }
     input:hover{
         border-bottom-color: aliceblue;
@@ -160,15 +198,15 @@
     }
     .edge{
         background-color: rgb(255,255,255);
-        &:hover:not([selected]){
+        &:hover:not([selected-item]){
             background-color: rgb(255,127,2);
             animation: anim-hover 130ms linear 0s 1 normal both;
         }
-        &[selected]{
+        &[selected-item]{
             transform: scale(1.05);
         }
     }
-    [selected]{
+    [selected-item]{
         background-color: rgb(255,127,2);
     }
 </style>
